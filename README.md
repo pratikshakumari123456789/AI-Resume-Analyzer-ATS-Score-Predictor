@@ -1,22 +1,87 @@
-# AI-Resume-Analyzer-ATS-Score-Predictor
-Built an AI-powered Resume Analyzer that predicts ATS scores using NLP and ML, providing keyword optimization, skill gap analysis, and job-description matching.
-# Extraction of Skills
-Extracting Skills from resume using NLP & Machine Learning techniques along with Word2Vec from gensim for Word Embeddings.
+# AI Resume Analyzer
 
-## Description
-Used Word2Vec from gensim for word embeddings after cleaning the data using NLP methods such as tokenization and stopword removal. Now, using these word embeddings K Clusters are created using K-Means Algorithm. Out of these K clusters some of the clusters contains skills (Tech, Non-tech & soft skills).
+## Overview
 
-## Prerequisites
-### Software
-* PyPDF2 1.26.0
-* doc2text 0.2.4
-* textract 1.6.3
-* python-docx 0.8.10
-* pdfminer3 2018.12.3.0
-* nltk 3.5
-* pandas 1.0.3
-* wordcloud 1.7.0
-* matplotlib 3.2.1
-* gensim 3.8.3
-* sklearn 0.22.2.post1
-* python 3.8.2
+AI Resume Analyzer is a Streamlit-based web application that analyzes resumes and provides ATS scores, skill extraction, role prediction, resume insights, sentiment analysis, and AI-generated recommendations.
+
+## Features
+
+* Resume PDF Upload
+* ATS Score Calculation
+* Skill Extraction
+* Resume Parsing
+* Role Prediction
+* Sentiment Analysis
+* Resume Summary Generation
+* AI-Powered Suggestions
+* Cover Letter Generation
+* Resume Ranking Dashboard
+* PDF Report Generation
+
+## Technologies Used
+
+* Python
+* Streamlit
+* Scikit-Learn
+* spaCy
+* NLTK
+* PyResparser
+* PDFMiner
+* PyPDF2
+* SQLite
+* Google Gemini API
+* BeautifulSoup
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/AI-Resume-Analyzer.git
+cd AI-Resume-Analyzer
+```
+
+Create virtual environment:
+
+```bash
+python -m venv venv
+```
+
+Activate virtual environment:
+
+```bash
+venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Install spaCy model:
+
+```bash
+python -m spacy download en_core_web_sm
+```
+
+Run the application:
+
+```bash
+streamlit run app.py
+```
+
+## Project Workflow
+
+1. Upload Resume PDF
+2. Extract Resume Text
+3. Analyze Skills
+4. Calculate ATS Score
+5. Predict Suitable Role
+6. Generate Resume Insights
+7. Generate Report
+
+## Author
+
+Pratiksha Kumari
+MCA Graduate
