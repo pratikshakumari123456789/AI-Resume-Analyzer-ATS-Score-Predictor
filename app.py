@@ -12,6 +12,10 @@ from PyPDF2 import PdfReader
 
 # NLP / ML
 import nltk
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
 import spacy
 from textblob import TextBlob
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -20,8 +24,15 @@ from sklearn.linear_model import LogisticRegression
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
-# Resume Parser
-from pyresparser import ResumeParser
+# Resume Parser (Deployment Safe)
+ResumeParser = None
+
+try:
+    nltk.download('stopwords', quiet=True)
+    nltk.download('punkt', quiet=True)
+    from pyresparser import ResumeParser
+except Exception:
+    ResumeParser = None
 
 # Web Scraping
 from bs4 import BeautifulSoup
@@ -40,7 +51,10 @@ import google.generativeai as genai
 # ============================
 nltk.download('punkt')
 nltk.download('stopwords')
-nlp = spacy.load('en_core_web_sm')
+try:
+    nlp = spacy.load("en_core_web_sm")
+except Exception:
+    nlp = spacy.blank("en")
 
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')
 if GEMINI_API_KEY:
@@ -247,13 +261,22 @@ def main():
             jobs = scraper.fetch_jobs(job_role)
 
             # PyResparser fallback fix (Python 3.14 / spaCy compatibility issue)
-            try:
-                parsed_data = ResumeParser('temp_resume.pdf').get_extracted_data()
-            except Exception as e:
+
+                    # PyResparser fallback fix
+            if ResumeParser:
+                try:
+                    parsed_data = ResumeParser('temp_resume.pdf').get_extracted_data()
+                except Exception as e:
+                    parsed_data = {
+                        'name': file.name,
+                        'skills': skills,
+                        'note': f'Resume parsing unavailable: {str(e)}'
+                    }
+            else:
                 parsed_data = {
                     'name': file.name,
                     'skills': skills,
-                    'note': f'PyResparser failed: {str(e)}'
+                    'note': 'PyResparser not available on deployment server'
                 }
 
             st.success(f'ATS Score: {ats_score}%')
@@ -353,3 +376,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
